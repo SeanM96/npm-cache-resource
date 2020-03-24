@@ -76,7 +76,7 @@ fi
 # use yarn, npm ci, npm install or bower to pull down packages
 if [ "$YARN_SUPPORT" != "false" ]; then
     if ["$YARN_ARGS" != ""]; then
-        NODE_ENV = $NODE_ENV && yarn install "$YARN_SUPPORT" >&2
+        NODE_ENV = $NODE_ENV && yarn install "$YARN_ARGS" >&2
     else
         NODE_ENV=$NODE_ENV && yarn install >&2
     fi
