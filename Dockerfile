@@ -1,4 +1,4 @@
-FROM node/lts-slim
+FROM mhart/alpine-node:latest
 
 MAINTAINER Yeray Medina López <ymedlop@gmail.com>
 
