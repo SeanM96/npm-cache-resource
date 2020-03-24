@@ -16,7 +16,7 @@ GIT_DEST_DIR="$(mktemp -d -t git-resource-destination.XXXXXX)"
 /opt/resource/git/in "$GIT_DEST_DIR"
 
 # the config passed via stdin is saved to /tmp/git-resource-request.*
-# by the /opt/resource/git/in script. load it back into PAYLOAD 
+# by the /opt/resource/git/in script. load it back into PAYLOAD
 # to parse it further
 PAYLOAD=$(echo /tmp/git-resource-request.*)
 
@@ -39,6 +39,7 @@ TOKEN=$(jq -r '.source.token // ""' < $PAYLOAD)
 PROJECT_PATH=$(jq -r '.source["project-path"] // ""' < $PAYLOAD)
 NPM_CI_SUPPORT=$(jq -r '.source["npm-ci-support"] // false' < $PAYLOAD)
 YARN_SUPPORT=$(jq -r '.source["yarn-support"] // false' < $PAYLOAD)
+YARN_ARGS=$(jq -r '.source["yarn-args"] // ""' < $PAYLOAD)
 BOWER_SUPPORT=$(jq -r '.source["bower-support"] // false' < $PAYLOAD)
 NODE_ENV=$(jq -r '.source["node-env"] // "development"' < $PAYLOAD)
 
@@ -74,7 +75,11 @@ fi
 
 # use yarn, npm ci, npm install or bower to pull down packages
 if [ "$YARN_SUPPORT" != "false" ]; then
-    NODE_ENV=$NODE_ENV && yarn install >&2
+    if ["$YARN_ARGS" != ""]; then
+        NODE_ENV = $NODE_ENV && yarn install "$YARN_SUPPORT"
+    else
+        NODE_ENV=$NODE_ENV && yarn install >&2
+    fi
 elif [ "$NPM_CI_SUPPORT" != "false" ]; then
     NODE_ENV=$NODE_ENV && npm ci --quiet >&2
 else
