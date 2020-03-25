@@ -47,8 +47,8 @@ RUN git config --global user.email "git@localhost" && \
 RUN mkdir -p /opt/resource/git && \
     wget https://github.com/cathive/concourse-bitbucket-pullrequest-resource/archive/master.zip -O /opt/resource/git/git-resource.zip && \
     unzip /opt/resource/git/git-resource.zip -d /opt/resource/git && \
-    mv /opt/resource/git/git-resource-master/assets/* /opt/resource/git && \
-    rm -r /opt/resource/git/git-resource.zip /opt/resource/git/git-resource-master && \
+    mv /opt/resource/git/concourse-bitbucket-pullrequest-resource-master/assets/* /opt/resource/git && \
+    rm -r /opt/resource/git/git-resource.zip /opt/resource/git/concourse-bitbucket-pullrequest-resource-master && \
     sed -i '/git lfs/s/^/echo /' /opt/resource/git/in
 
 # install npm cache resource
